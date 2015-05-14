@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+  <li class="{% if urls.compose_message.current_or_subpath? %}active{% endif %}"><a href="{{ urls.compose_message }}">Compose</a></li>
+  <li class="{% if urls.messages_inbox.current_or_subpath? %}active{% endif %}"><a href="{{ urls.messages_inbox }}">Inbox</a></li>
+  <li class="{% if urls.messages_outbox.current? %}active{% endif %}"><a href="{{ urls.messages_outbox }}">Sent Messages</a></li>
+  <li class="{% if urls.messages_trash.current_or_subpath? %}active{% endif %}">
+    <a href="{{ urls.messages_trash }}">
+      <i class="icon-trash"></i>
+      Trash
+    </a>
+  </li>
+</ul>

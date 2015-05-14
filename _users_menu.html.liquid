@@ -1,0 +1,28 @@
+<ul class="nav nav-tabs">
+
+  <li class="{% if urls.account_overview.active? %}active{% endif %}">
+    <a href="{{ urls.account_overview }}">Account Details</a>
+  </li>
+
+  {% if provider.account_management_enabled? %}
+    {% include 'menu_item' with urls.users %}
+
+    {% if provider.multiple_users_allowed? %}
+      {% include 'menu_item' with urls.invitations %}
+    {% endif %}
+  {% endif %}
+
+
+  {% if provider.account_plans.size > 1 %}
+    {% include 'menu_item' with urls.account_plans %}
+  {% endif %}
+
+  {% if provider.finance_allowed? %}
+    {% include 'menu_item' with urls.invoices %}
+
+    {% if urls.payment_details %}
+      {% include 'menu_item' with urls.payment_details %}
+    {% endif %}
+  {% endif %}
+
+</ul>

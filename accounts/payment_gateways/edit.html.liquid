@@ -1,0 +1,45 @@
+{% if provider.payment_gateway.braintree_blue? %}
+
+  <h2>{{ provider.name }} Service Payment Details</h2>
+
+  <div class="wide_dashboard_box round">
+    <h3>Payment Details</h3>
+
+    <p>Update your credit card details here to set up monthly billing for your {{ provider.name }} service. You'll be charged monthly on 7th of the following month and receive email notification about a successful payment along with the invoice.</p>
+
+    {% braintree_customer_form %}
+
+    <p><a href="{{ urls.credit_card_terms}}" id="terms-link">Terms of Service</a>, <a href="{{ urls.credit_card_privacy }}" id="privacy-link">Privacy</a> and <a href="{{ urls.credit_card_refunds }}" id="refunds-link">Refund</a> policies.</p>
+
+  </div>
+
+{% else %}
+
+  <h2>Edit Billing Address</h2>
+
+  {% form 'account.billing_address', current_account.billing_address %}
+
+    <fieldset class="inputs" name="Billing Address">
+      <legend><span>Billing Address</span></legend>
+
+      <ol>
+        {% for field in current_account.billing_address.fields %}
+          {% include 'field' with field %}
+        {% endfor %}
+      </ol>
+    </fieldset>
+
+    <p><a href="{{ urls.credit_card_terms }}" id="terms-link">Terms of Service</a>, <a href="{{ urls.credit_card_privacy }}" id="privacy-link">Privacy</a> and <a href="{{ urls.credit_card_refunds }}" id="refunds-link">Refund</a> policies.</p>
+
+    <fieldset class="buttons">
+      <ol>
+        <li class="commit">
+          <input class="important-button update" name="commit" type="submit" value="Save">
+        </li>
+      </ol>
+    </fieldset>
+
+  {% endform %}
+
+{% endif %}
+

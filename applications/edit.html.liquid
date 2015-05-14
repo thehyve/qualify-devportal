@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="{{ application.url }}">
+          <i class="icon-chevron-left"></i>
+          {{ application.name }}
+        </a>
+      </div>
+      <div class="panel-body panel-footer">
+        {% form 'application.update', application, class: "form-horizontal" %}
+          {% include 'applications/form' %}
+          <fieldset>
+            <div class="form-group">
+              <div class="col-md-10">
+                <input class="btn btn-primary pull-right"
+                  name="commit"
+                  type="submit"
+                  value="Update Application" />
+              </div>
+            </div>
+          </fieldset>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>

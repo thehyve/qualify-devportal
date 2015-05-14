@@ -1,0 +1,18 @@
+<script src="/assets/active-docs/application.js" ></script>
+<link href="/assets/active-docs/application.css" media="screen" rel="stylesheet" />
+
+<h1>Documentation</h1>
+
+<p>Use our live documentation to learn about Hello World API</p>
+
+<div class='api-docs-wrap'></div>
+<script>
+  $(function(){
+    {% comment %}
+      // if you are hosting you specs elsewhere, load them by:
+      ThreeScale.APIDocs.host = 'https://{your-own-server}';
+    {% endcomment %}
+
+    ThreeScale.APIDocs.init([]);
+  });
+</script>

@@ -1,0 +1,166 @@
+{% content_for stylesheets %}
+  {{ 'legacy/stats' | stylesheet_link_tag }}
+{% endcontent_for %}
+
+<style>
+  div.stats {
+    width: 106.5%;
+  }
+
+  div.chart-wrap {
+    float: none;
+    width: auto;
+    margin-top: -10px;
+    overflow-x: hidden;
+  }
+
+  div.stats-support {
+    float: none;
+    width: auto;
+    position: static;
+    top: 0px;
+  }
+
+  .detail-selector div.selector  {
+    border: 1px solid rgb(221, 221, 221);
+    background: none;
+  }
+
+  div.chart-control-buttons span.current, div.chart-control-buttons span:hover, span#submit-stats-search {
+    background: #ddd;
+    background: rgba(255, 255, 255, 0.8);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    border-width: 1px;
+    border-color:#888;
+    border-bottom-color:#888;
+
+  }
+  span#submit-stats-search:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background: #ddd;
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .data-sup {
+    min-height: 482px;
+  }
+
+  div.chart {
+    margin-left: -4.5em;
+  }
+
+  .panel-body h2 {
+    display: none;
+  }
+
+</style>
+
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="icon-bar-chart"></i>
+      Graphs
+      {% if provider.multiple_applications_allowed? %}
+        <div class="stats-support relative pull-right">
+          <select id="application-select" name="application">
+            {% assign groups = applications | group_by: 'service' %}
+            {% for group in groups %}
+              <optgroup label="{{group[0].name}}">
+                {% for application in group[1] %}
+                  <option value="{{application.id}}">{{ application.name }}</option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    </div>
+    <div class="panel-body panel-footer">
+
+      <div class='wrap stats'>
+
+
+          <div class="chart-wrap">
+            <div class="loading"><span>{{ 'spinner.gif' | image_tag }}</span></div>
+            <div id="chart-1" class='chart' style="width:100%; height:auto;"></div>
+            <p class='timezone'>Using time zone {{ provider.timezone.full_name }}</p>
+          </div>
+
+          {% include 'stats/selector_widgets' %}
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="methods col-md-3">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Methods
+      <div class="methods-loading"><span>{{ 'spinner.gif' | image_tag }}</span></div>
+    </div>
+    <div class="panel-body panel-footer">
+      <div id="methods" class="data-sup" style='display:none;'></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    var client_id;
+    var appsSelect = document.getElementById('application-select');
+
+    if (appsSelect && appsSelect.options.length > 0)
+      client_id = appsSelect.options[appsSelect.selectedIndex].value;
+    else
+      client_id = jQuery('#client-name').attr('data-client');
+
+   if (typeof client_id === "undefined" || client_id === null) {
+     throw 'Failed to find application id in the DOM structure';
+   }
+
+   if(typeof client_id != 'undefined'){
+     // ThreeScale.Analytics.Usage.service_id =  $('#chart-1').attr('data-service-id');
+     // ThreeScale.Analytics.Usage.client_id  =  client_id;
+     ThreeScale.Analytics.Usage.application_id =  client_id;
+
+     ThreeScale.Analytics.Usage.init();
+   }
+
+   jQuery('#application-select').change(function(){
+     jQuery('.loading').fadeIn('slow');
+     var client_id = this.options[this.selectedIndex].value;
+     ThreeScale.Analytics.Usage.application_id =  client_id;
+     ThreeScale.Analytics.Usage.chart.dataEndPoint = ThreeScale.Analytics.Usage.resources.usage();
+
+     $.ajax({
+       url: '/buyer/stats/' + client_id + '/methods',
+       dataType: 'html',
+       success: function(methods) {
+         $('#methods-ul').html(methods);
+       }
+     });
+
+     $.ajax({
+       url: '/buyer/stats/' + client_id + '/metrics',
+       dataType: 'html',
+       success: function(metrics) {
+         $('#metrics-ul').html(metrics);
+       }
+     });
+
+     $(window).trigger('apply-selectors');
+   });
+
+  });
+</script>
+
+</div>

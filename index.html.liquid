@@ -1,0 +1,220 @@
+<header class="jumbotron page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Hello World API</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% if current_user %}
+  <section class="start">
+  <div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Lets get started</h1>
+      <p class="lead">
+        I will obey your orders. I will serve this ship as First Officer. And in an attack against the Enterprise, I will die with this crew. But I will not break my oath of loyalty to Starfleet. and attack the Romulans. But the probability of making a six is no greater than that of rolling a seven. I'll alert the crew.
+      </p>
+    </div>
+    <div class="col-md-6" style="padding-top:2em;">
+      <div class="panel panel-default" id="access-details">
+        <div class="panel-heading">
+          <i class="icon-key"></i>
+          Credentials
+          {% if current_account.applications.size > 0 %}
+            <a class="pull-right" href="{{ urls.applications }}" title="Applications">
+              <i class="icon-chevron-right"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="panel-body panel-footer">
+          {% if current_account.applications.size == 0 %}
+            <a href="{{ urls.new_application }}" class="btn btn-primary">Create Application</a>
+          {% elsif current_account.applications.size == 1 %}
+            {% assign app = current_account.applications.first %}
+
+            {% if app.user_key_mode? %}
+              <dl class="dl-horizontal">
+                <dt>App name</dt>
+                <dd><a href="{{ app.url }}">{{ app.name }}</a></dd>
+                <dt>Key</dt>
+                <dd>
+                  <code>{{ app.user_key }}</code>
+                  <p>Add this as a <code>user_key</code> parameter to your API calls to authenticate.</p>
+                </dd>
+              </dl>
+
+            {% elsif app.app_id_mode? %}
+              <dl class="dl-horizontal">
+                <dt>App name</dt>
+                <dd><a href="{{ app.url }}">{{ app.name }}</a></dd>
+                <dt>App ID</dt>
+                <dd><code>{{ app.application_id }}</code></dd>
+                <dt>Key</dt>
+                <dd><code>{{ app.keys.first }}</code></dd>
+              </dl>
+
+            {% elsif app.oauth_mode? %}
+              <dl class="dl-horizontal">
+                <dt>App name</dt>
+                <dd><a href="{{ app.url }}">{{ app.name }}</a></dd>
+                <dt>Client ID</dt>
+                <dd><code>{{ app.application_id }}</code></dd>
+                <dt>Client Secret</dt>
+                <dd><code>{{ app.keys.first }}</code></dd>
+              </dl>
+            {% endif %}
+
+            {% if app.trial? %}
+              <div class="alert alert-warning">
+                <h3>Trial period</h3>
+                <p>{{ app.remaining_trial_period_days }} days remaining.</p>
+              </div>
+            {% endif %}
+
+          {% elsif current_account.applications.size > 1 %}
+            <a href="{{ urls.applications }}" class="btn btn-primary">See your Applications & their credentials</a>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </section>
+
+{% else %}
+
+  <section class="sell">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>More hello</h3>
+          <p>I can't. As much as I care about you, my first duty is to the ship. I think you've let your personal feelings cloud your judgement. Some days you get the bear. Some days you get the bear, and some days the bear gets you. In all trust, there is the possibility for betrayal. Your head is not an artifact!</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Better world</h3>
+          <p>Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. About four years. I got tired of hearing how young I looked. Wait a minute - you've been declared dead.</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Happy people</h3>
+          <p>I got tired of hearing how young I looked. Wouldn't that bring about chaos? You enjoyed that. We could cause a diplomatic crisis. Take the ship into the Neutral Zone Travel time to the nearest starbase? Ensign Babyface! Congratulations - you just destroyed the Enterprise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="plans">
+    <div class="container">
+      <h1>Pick your plan</h1>
+      <br/>
+      <div class="row">
+        {% for plan in provider.services.api.application_plans %}
+          <div class="col-md-6">
+            <article class="panel panel-default">
+              <div class="panel-heading">
+                <strong>{{ plan.name }}</strong>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+
+                  {% if plan.features == present %}
+                    <div class="col-md-6">
+                      <h5>Features</h5>
+                      <ul class="features list-unstyled">
+                        {% for feature in plan.features %}
+                          <li>
+                            <i class="icon-check-sign"></i>
+                            {{ feature.name }}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+
+                  <div class="col-md-6">
+                    <h5>Limits</h5>
+                    <ul class="limits list-unstyled">
+                      {% if plan.usage_limits == present %}
+                        {% for limit in plan.usage_limits %}
+                          <li>
+                            <i class="icon-signal"></i>
+                            {{ limit.value }} {{ limit.metric.unit }}s per {{ limit.period }}
+                          </li>
+                        {% endfor %}
+                      {% else %}
+                        <li>
+                          <i class="icon-signal"></i>
+                          No limits
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+                <div class="panel-footer">
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <a class="btn btn-success pull-right" href="{{ urls.signup }}?{{ plan | to_param }}">Signup to plan {{ plan.name }}</a>
+                  </div>
+                </div>
+
+              </div>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+<section class="invert">
+  <div class="container">
+    <h1>Run your requests</h1>
+    <div class="row">
+
+      <div class="col-md-12">
+        <h3><code style="display:block">$ curl -v https://hello-world-api.3scale.net</code></h3>
+        <br/>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Request
+              </div>
+              <div class="panel-body panel-footer">
+                <pre>
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.27.0
+&gt; Host: https://hello-world-api.3scale.net
+&gt; Accept: */*
+&gt;
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Response
+              </div>
+              <div class="panel-body panel-footer">
+                <pre>
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/plain; charset=utf-8
+&lt; Connection: close
+Hello World!
+
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

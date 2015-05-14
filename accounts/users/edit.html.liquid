@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-10">
+    {% include 'users_menu' %}
+
+    {% form 'user.edit', user %}
+      {% for field in user.fields %}
+        {% include 'field' with field %}
+      {% endfor %}
+
+      <fieldset class="inputs" name="Change Password">
+        <legend>
+          <span> Change Password </span>
+        </legend>
+        <ol>
+          <li class="password required" id="user_password_input">
+            <label for="user_password">
+              Password
+              <abbr title="required">*</abbr>
+            </label>
+            <input id="user_password" name="user[password]" type="password" value="">
+            {{ user.errors.password | inline_errors }}
+          </li>
+          <li class="password required" id="user_password_confirmation_input">
+            <label for="user_password_confirmation">
+              Password confirmation
+              <abbr title="required">*</abbr>
+            </label>
+            <input id="user_password_confirmation" name="user[password_confirmation]" type="password">
+            {{ user.errors.password_confirmation | inline_errors }}
+          </li>
+        </ol>
+      </fieldset>
+
+      {% if user.can.be_update_role? %}
+        <fieldset class="inputs" name="Administrative">
+          <legend>
+            <span> Administrative </span>
+          </legend>
+          <ol>
+            <li class='radio optional' id='user_role_input'>
+              <fieldset>
+                <legend class="label">
+                  <label> Role </label>
+                 </legend>
+                <ol>
+                  {% for role in user.roles_collection %}
+                    <li>
+                      <label for="user_role_{{ role.name }}">
+                        <input
+                          {% if user.role == role.name %}
+                            checked="checked"
+                          {% endif %}
+                        class="users_ids" id="user_role_{{ role.name }}" name="user[role]" type="radio" value="{{ role.name }}">
+                       {{ role.description }}
+                      </label>
+                     </li>
+                   {% endfor %}
+                </ol>
+              </fieldset>
+            </li>
+          </ol>
+        </fieldset>
+      {% endif %}
+
+      <fieldset class="buttons">
+        <ol>
+          <li class="link">
+            {{ 'Cancel' | link_to: urls.users }}
+          </li>
+          <li class="commit">
+            <input class="important-button update" name="commit" type="submit" value="Update User">
+          </li>
+        </ol>
+      </fieldset>
+    {% endform %}
+  </div>
+</div>

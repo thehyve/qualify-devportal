@@ -1,0 +1,78 @@
+<table class="list" id="billing_address">
+  <tr>
+    <th>Billing address</th>
+    <td>{{ current_account.billing_address.address }}</td>
+  </tr>
+
+  <tr>
+    <th>City</th>
+    <td>{{ current_account.billing_address.city }}</td>
+  </tr>
+
+  <tr>
+    <th>Zip</th>
+    <td>{{ current_account.billing_address.zip }}</td>
+  </tr>
+
+  <tr>
+    <th>State</th>
+    <td>{{ current_account.billing_address.state }}</td>
+  </tr>
+
+  <tr>
+    <th>Country</th>
+    <td>{{ current_account.billing_address.country }}</td>
+  </tr>
+
+  <tr>
+    <th>Phone</th>
+    <td>{{ current_account.billing_address.phone }}</td>
+  </tr>
+</table>
+
+{% if current_account.credit_card_stored? %}
+
+  <table class="list" id="credit_card">
+    <tr>
+      <th>Credit card number</th>
+      <td>{{ current_account.credit_card_display_number }}</td>
+    </tr>
+
+    {% unless provider.payment_gateway.authorize_net? %}
+      <tr>
+        <th>Expiration date</th>
+        <td>{{ current_account.credit_card_expiration_date }}<td>
+      </tr>
+    {% endunless %}
+  </table>
+{% endif %}
+
+{% case provider.payment_gateway.type %}
+{% when "authorize_net" %}
+  {% authorize_net_form "Edit Credit Card Details" %}
+
+{% when "ogone" %}
+  <p><a href="{{ current_account.edit_ogone_billing_address_url }}">Edit billing address</a></p>
+
+  {% if current_account.has_billing_address? %}
+    {% ogone_form "Edit Credit Card Details" %}
+  {% else %}
+    <p>After entering billing address, the option to enter credit card will be enabled.</p>
+  {% endif %}
+
+{% when "payment_express" %}
+  <p><a href="{{ current_account.edit_payment_express_billing_address_url }}">Edit billing address</a></p>
+
+  {% if current_account.has_billing_address? %}
+    {% payment_express_form "Edit Credit Card Details" %}
+  {% else %}
+    <p>After entering billing address, the option to enter credit card will be enabled.</p>
+  {% endif %}
+
+{% when "braintree_blue" %}
+  <p><a href="{{ current_account.edit_braintree_blue_credit_card_details_url }}">Edit Credit Card Details</a></p>
+{% else %}
+  <h2>Unknown Payment Gateway</h2>
+{% endcase %}
+
+<p>By <strong>Entering Credit Card details</strong> you agree to the <a href="{{ urls.credit_card_terms }}" id="terms-link">Terms of Service</a>, <a href="{{ urls.credit_card_privacy }}" id="privacy-link">Privacy</a> and <a href="{{ urls.credit_card_refunds }}" id="refunds-link">Refund</a>.</p>
