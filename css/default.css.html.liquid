@@ -7,8 +7,7 @@ html {
 }
 
 body {
-  background-color: #077FCC; /* fallback */
-  background-color: rgba(34, 129, 204, 0.98);
+  background-color: #333333; /* fallback */
   color: #333; /* fallback */
   color: rgba(0, 0, 0, 0.6);
   min-height: 100%;
@@ -38,8 +37,8 @@ body {
 }
 
 .page-header + section {
-  background-color: transparent;
-  color: white;
+    background-color: transparent;
+    color: #333;
 }
 
 .page-header + section .panel {
@@ -48,11 +47,12 @@ body {
 
 /* headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: Georgia;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  font-weight: normal;
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-  font-weight: normal;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+h1 {
+  text-align: center;
 }
 
 .jumbotron.page-header h1 {
@@ -71,8 +71,6 @@ h2 i {
 
 /* sectioning elements */
 section, .section, .full {
-  background-color: #ededed; /* fallback */
-  background-color: rgba(255, 255, 255, 0.8);
 }
 
 article {
@@ -96,8 +94,8 @@ footer {
 footer .list-inline > li {
   padding-left: 0;
   padding-right: 0;
-  display: block;
-  float: left;
+  display: inline-block;
+  vertical-align:middle;
 }
 
 footer .powered-by {
@@ -115,10 +113,7 @@ footer .powered-by {
 }
 
 footer .container {
-  background-color: transparent; /* fallback */
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+
 }
 
 /* containers */
@@ -136,18 +131,25 @@ footer .container {
   padding-top: 2em;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: #f1f1f1; /* fallback */
-  background-color: rgba(255, 255, 255, 0.2);
+
+}
+
+.container > p {
+  text-align: center;
 }
 
 .invert .container {
-  background-color: #5B5B5B; /* fallback */
-  background-color: rgba(255, 255, 255, 0.05);
+
 }
 
 .page-header + section .container, header .container {
-  background-color: transparent; /* fallback */
-  background-color: rgba(255, 255, 255, 0.05);
+
+}
+
+body > header {
+    background: url("/images/nav-header.jpg") no-repeat scroll 0 0 / cover transparent;
+    height: 96px;
+    overflow: hidden;
 }
 
 header .container {
@@ -284,6 +286,7 @@ fieldset:first-of-type {
   font-size: 11px;
   font-weight: normal;
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  text-align:center;
 }
 
 .panel-default > .panel-heading strong {
@@ -433,12 +436,32 @@ section.invert {
   color: white;
   margin-bottom: 0;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .navbar-nav > li > a {
   padding-top: 18px !important;
-  padding-bottom: 12px !important;
+  padding-bottom: 28px !important;
+}
+
+.nav.navbar-nav.navbar-right.log a {
+    background: url("/images/btn-blue.png") no-repeat scroll center 26px rgba(0, 0, 0, 0);
+    color: white;
+    margin-left: 20px;
+    min-width: 94px;
+    text-align: center;
+}
+
+.navbar-nav .active::after {
+    background: url("/images/active-nav.png") repeat scroll center center transparent;
+    bottom: 0;
+    content: " ";
+    display: block;
+    height: 16px;
+    left: 50%;
+    margin-left: -1600px;
+    position: absolute;
+    width: 3200px;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
@@ -447,10 +470,10 @@ section.invert {
   color: white;
 }
 
-.navbar-default .navbar-nav li a, .navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand{
-  color: white; /* fallback */
-  color: rgba(255, 255, 255, 0.8);
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+.navbar-default .navbar-nav li a, .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+    color: #dddddd;
+    font-family: "Open Sans",sans-serif;
+    line-height: 50px;
 }
 
 ul.navbar-inverse {
@@ -487,7 +510,8 @@ ul.navbar-default li a {
 }
 
 .navbar-collapse {
-  padding-right: 0;
+    min-height: 96px;
+    padding-right: 0;
 }
 
 .navbar-form {
@@ -530,7 +554,8 @@ article.jumbotron {
 }
 
 main {
-  display: block;
+    background: none repeat scroll 0 0 #fff;
+    display: block;
 }
 
 
@@ -555,6 +580,127 @@ pre.message {
 #keys.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
   padding: 0 0 10px 0;
 }
+
+/* overload other asset css 23 */
+
+body .api-docs-wrap li.operation {
+
+    margin: 0 ;
+}
+
+
+body .api-docs-wrap ul#apidocs-resources li.resource li.operation div.apidocs-heading {
+    background: none repeat scroll 0 0 #505b63;
+    border-bottom: 1px solid #f9f9f9;
+    border-radius: 0;
+}
+
+body .api-docs-wrap ul#apidocs-resources li.resource li.operation div.apidocs-heading:hover {
+    background: none repeat scroll 0 0 #505b63 ;
+}
+
+
+
+
+
+body .api-docs-wrap ul#apidocs-resources li.resource li.operation:last-child div.apidocs-heading {
+    border-bottom: 0 !important;
+}
+
+ul.operations {
+    border-radius: 3px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+body .api-docs-wrap li.operation div.apidocs-heading div.apidocs-bubble a {
+    color: #f7f1e3;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px 20px;
+    text-shadow: none;
+}
+
+body .api-docs-wrap li.operation div.apidocs-heading div.apidocs-bubble a:hover {
+    color: #eee6d2;
+}
+
+body .api-docs-wrap li.operation div.content {
+    border-top: medium none;
+    margin: 0px;
+}
+
+body .api-docs-wrap ul#apidocs-resources li.resource {
+    border-bottom: 0 none;
+    margin-bottom: 20px;
+}
+
+body #apidocs-resources-container > h2::before, body #apidocs-resources-container > h2::after {
+    background-color: #bbb;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+body #apidocs-resources-container > h2::after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+body #apidocs-resources-container > h2::before {
+    margin-left: -50%;
+    right: 0.5em;
+}
+
+body #apidocs-resources-container > h2 {
+    color: #777;
+    margin: 0 60px !important;
+    overflow: hidden;
+    text-align: center;
+}
+
+.btn {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 20px;
+    color: #000;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 40px;
+    text-transform: uppercase;
+  	font-style:normal;
+}
+
+label {
+    color: #777;
+    font-family: Futura,"Trebuchet MS",Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    text-transform: none;
+}
+
+.btn:hover{
+  	background: none repeat scroll 0 0 #fafafa;
+}
+
+.btn-success {
+  background: #51c4d4;
+  border-color:#51c4d4;
+  color: #fff;
+}
+
+.btn-success:hover {
+  bacgroud: #fff;
+  color:#51c4d4;
+  border-color:#51c4d4;
+}
+
+
+
+
 
 /* definition lists */
 @media (min-width: 768px) {

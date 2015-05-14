@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     {% csrf %}
     {{ '/css/bootstrap.css' | stylesheet_link_tag }}
     {{ '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' | stylesheet_link_tag }}
@@ -14,6 +14,7 @@
 
     {{ '/javascripts/3scale.js' | javascript_include_tag }}
     {{ '/javascripts/excanvas.compiled.js' | javascript_include_tag }}
+    {{ '/javascripts/script.js' | javascript_include_tag }}
 
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
@@ -24,6 +25,8 @@
     {{ '/css/default.css' | stylesheet_link_tag }}
 
     {{ content_of.javascripts | html_safe }}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
@@ -31,7 +34,7 @@
       <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container tabbed">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/">{{  provider.name }}</a>
+            <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Qualify" /></a>
           </div>
           {% include 'submenu'%}
         </div>
@@ -70,7 +73,7 @@
 
     <footer role="contentinfo">
       <div class="container">
-        <ul class="list-inline pull-right">
+        <ul class="list-inline text-center">
           <li>&copy; {{ today.year }} {{ provider.name }},</li>
           <li><a class="powered-by" href="http://3scale.net/">Powered by 3scale</a></li>
         </ul>
