@@ -24,33 +24,18 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
 
-      {% if provider.multiple_applications_allowed? %}
-        <li class="{% if urls.applications.active? %}active{% endif %}">
-          <a href="{{ urls.applications }}">{{ urls.applications.title }}</a>
-        </li>
-      {% elsif current_account.applications.first == present%}
-        {% assign app = current_account.applications.first %}
-        <li class="{% if app.url.active? %}active{% endif %}">
-          <a href="{{ app.url }}">API Credentials</a>
-        </li>
-      {% elsif current_user.can.create_application? %}
-        <li class="{% if url.new_application.active? %}active{% endif %}">
-          <a href="{{ urls.new_application }}">Get API Credentials</a>
-        </li>
-      {% else %}
-        <!-- You don't have any application neither can create one. Bad luck. -->
-      {% endif %}
+      <li class="{% if urls.services.active? %}active{% endif %}">
+        <a href="{{ urls.services }}">{{ urls.services.title }}</a>
+      </li>
+
+      <li class="{% if urls.applications.active? %}active{% endif %}">
+        <a href="{{ urls.applications }}">{{ urls.applications.title }}</a>
+      </li>
 
       {% assign live_apps_present = current_account.applications | map: 'state' | any: 'live' %}
       {% if live_apps_present %}
         <li class="{% if urls.stats.active? %}active{% endif %}">
           <a href="{{ urls.stats }}">Statistics</a>
-        </li>
-      {% endif %}
-
-      {% if provider.multiple_services_allowed? %}
-        <li class="{% if urls.services.active? %}active{% endif %}">
-          <a href="{{ urls.services }}">{{ urls.services.title }}</a>
         </li>
       {% endif %}
 
