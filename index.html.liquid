@@ -48,7 +48,7 @@
                     {% endunless %}
                   {% endif %}
                   {% unless subscription %}
-                    <a href="{{ urls.signup }}?{{ service | to_param }}">Signup to {{ service.name }}</a>
+                    <a href="{{ urls.signup }}?{{ service | to_param }}">Sign up</a>
                   {% endunless %}
                 </td>
 
@@ -81,7 +81,7 @@
 
                     {% endif %}
                  {% else %}
-                   {{ "Subscribe to " | append: service.name | link_to: service.subscribe_url }}
+                   {{ "Subscribe" | link_to: service.subscribe_url }}
                  {% endif %}
                 </td>
                 {% endif %}
