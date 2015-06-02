@@ -17,7 +17,7 @@
     <div class="col-md-6">
       <h1>Services</h1>
 
-      <table class="table">
+      <table class="table panel panel-default">
         <thead>
           <tr>
             <th style="width:20%">Name</th>
@@ -47,39 +47,39 @@
                       ({{ subscription.state }})
                     {% endunless %}
                   {% endif %}
-        {% unless subscription %}
-      <a href="{{ urls.signup }}?{{ service | to_param }}">Signup to {{ service.name }}</a>
-      {% endunless %}
+                  {% unless subscription %}
+                    <a href="{{ urls.signup }}?{{ service | to_param }}">Signup to {{ service.name }}</a>
+                  {% endunless %}
                 </td>
 
                 <td>
                   {% if subscription %}
-                      {% if subscription.can.change_plan? %}
-                         <a href="#" id="choose-plan-{{subscription.id}}" class="btn btn-default">Review/Change</a>
+                    {% if subscription.can.change_plan? %}
+                      <a href="#" id="choose-plan-{{subscription.id}}" class="btn btn-default">Review/Change</a>
 
-                         {{ "plans_widget.js" | javascript_include_tag }}
-                         {{ "plans_widget.css" | stylesheet_link_tag }}
+                      {{ "plans_widget.js" | javascript_include_tag }}
+                      {{ "plans_widget.css" | stylesheet_link_tag }}
 
-                          <script type="text/javascript">
-                            //<![CDATA[
-                            $(document).ready(function() {
-                              $("#choose-plan-{{ subscription.id }}").click(function(){
-                                var planID = '{{ subscription.plan.id }}';
-                                var contractID = '{{ subscription.id }}';
-                                var url = '{{ subscription.change_plan_url }}';
+                      <script type="text/javascript">
+                        //<![CDATA[
+                        $(document).ready(function() {
+                          $("#choose-plan-{{ subscription.id }}").click(function(){
+                            var planID = '{{ subscription.plan.id }}';
+                            var contractID = '{{ subscription.id }}';
+                            var url = '{{ subscription.change_plan_url }}';
 
-                                function plan_chosen_callback(name, planID){
-                                }
+                            function plan_chosen_callback(name, planID){
+                            }
 
-                                PlanWidget.loadPreview(planID, plan_chosen_callback, url, contractID );
+                            PlanWidget.loadPreview(planID, plan_chosen_callback, url, contractID );
 
-                                return false;
-                              });
-                            });
-                            //]]>
-                          </script>
+                            return false;
+                          });
+                        });
+                        //]]>
+                      </script>
 
-                      {% endif %}
+                    {% endif %}
                  {% else %}
                    {{ "Subscribe to " | append: service.name | link_to: service.subscribe_url }}
                  {% endif %}
@@ -91,7 +91,7 @@
       </table>
     </div>
 
-    
+
     <div class="col-md-6">
       <h1>Applications</h1>
 
