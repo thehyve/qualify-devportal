@@ -136,7 +136,9 @@
           <td colspan="3">
           </td>
           <td>
-            <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-default btn-xs">Create new application</a>
+            {% if current_user.can.create_application? %}
+              <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-default btn-xs">Create new application</a>
+            {% endif %}
           </td>
         </tr>
         </tfoot>
