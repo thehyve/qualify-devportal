@@ -34,9 +34,9 @@
                             ({{ subscription.state }})
                           {% endunless %}
                         {% endif %}
-	  					{% unless subscription %}
-	    			<a href="{{ urls.signup }}?{{ service | to_param }}">Signup to {{ service.name }}</a>
-	  				{% endunless %}
+                        {% unless subscription %}
+                          <a href="{{ urls.signup }}?{{ service | to_param }}">Signup to {{ service.name }}</a>
+                        {% endunless %}
                       </td>
 
                       <td>
