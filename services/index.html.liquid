@@ -4,7 +4,7 @@
       <div class="col-md-10">
         <div class="panel panel-default">
           <div class="panel-body">
-            <table class="table">
+            <table class="table table-hover">
               <thead>
                 <tr>
                   <th style="width:20%">Name</th>
@@ -35,7 +35,7 @@
                           {% endunless %}
                         {% endif %}
                         {% unless subscription %}
-                          <a href="{{ urls.signup }}?{{ service | to_param }}">Sign up</a>
+                          <a class="btn btn-info" href="{{ urls.signup }}?{{ service | to_param }}">Sign up</a>
                         {% endunless %}
                       </td>
 
