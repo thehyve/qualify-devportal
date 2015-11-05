@@ -11,7 +11,7 @@
                   {% if provider.multiple_services_allowed? %}
                     <th>Service</th>
                   {% endif %}
-                  <th>Credentials</th>
+                  <th>Key</th>
                   <th>State</th>
                   <th>
                   </th>
@@ -40,18 +40,8 @@
                     {% endfor %}
                 {% endfor %}
               </tbody>
-              <tfoot>
-              <tr>
-                <td colspan="3">
-                </td>
-                <td>
-                  {% if current_user.can.create_application? %}
-                    <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-default btn-xs">Create new application</a>
-                  {% endif %}
-                </td>
-              </tr>
-              </tfoot>
             </table>
+            <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-info">Create new application</a>
           </div>
         </div>
       </div>

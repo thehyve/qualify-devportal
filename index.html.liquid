@@ -29,14 +29,14 @@
       <div class="col-md-9">
         <h1>Applications</h1>
 
-        <table class="table table-hover panel panel-default" id="applications">
+        <table class="table table-hover" id="applications">
           <thead>
             <tr>
               <th>Name</th>
               {% if provider.multiple_services_allowed? %}
                 <th>Service</th>
               {% endif %}
-              <th>Credentials</th>
+              <th>Key</th>
               <th>State</th>
               <th>
               </th>
@@ -65,18 +65,8 @@
                 {% endfor %}
             {% endfor %}
           </tbody>
-          <tfoot>
-          <tr>
-            <td colspan="3">
-            </td>
-            <td>
-              {% if current_user.can.create_application? %}
-                <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-default btn-xs">Create new application</a>
-              {% endif %}
-            </td>
-          </tr>
-          </tfoot>
         </table>
+        <a href="{{ urls.new_application }}" title="Create new application" class="btn btn-info">Create new application</a>
       </div>
     {% else %}
       <div class="col-md-9">
