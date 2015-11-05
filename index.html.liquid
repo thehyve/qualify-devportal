@@ -13,6 +13,18 @@
   <div class="container">
   <div class="row">
 
+    <div class="col-md-9">
+      <h1>Getting started</h1>
+      <ol>
+        <li>Subscribe to a <a href="{{ urls.services }}">service</a>.</li>
+        <li><a href="{{ urls.new_application }}">Create an application</a> (one for each service you'd like to use).</li>
+        <li>Get the key(s) for your <a href="{{ urls.applications }}">application(s)</a></li>
+        <li>Use the key(s) to make calls from your actual application. See the <a href="/docs">documentation</a> for more information. For instance:
+          <code>curl -v http://api.quisper.eu/pdas/properties.json -H "user_key: [application key]"</code>
+        </li>
+      </ol>
+    </div>
+
     {% if current_account.applications.size > 0 %}
       <div class="col-md-9">
         <h1>Applications</h1>
