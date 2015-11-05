@@ -96,26 +96,28 @@
                                  Free
                               {% else %}
                                  <div>
-                                   <div>Setup fee {{ application_plan.setup_fee }}</div>
-                                   <div>Flat cost {{ application_plan.flat_cost }}</div>
+                                   <div>Setup fee: {{ application_plan.setup_fee }}</div>
+                                   <div>Flat cost: {{ application_plan.flat_cost }}</div>
                                 </div>
                               {% endif %}
                               {% for feature in application_plan.features %}
                                 <li>{{ feature.name }}</li>
                               {% endfor %}
                               {% for metric in application_plan.metrics %}
-                                <li>{{ metric.name }}, {{ metric.unit }}, {{ metric.description }}
-                                  <ul>
-                                    {% for pricing_rule in metric.pricing_rules %}
-                                      <li>{{ pricing_rule.min }} - {{ pricing_rule.max }}: {{ pricing_rule.cost_per_unit }}</li>
-                                    {% endfor %}
-                                  </ul>
-                                  <ul>
-                                    {% for usage_limit in metric.usage_limits %}
-                                      <li>{{ usage_limit.period }} : {{ usage_limit.value }}</li>
-                                    {% endfor %}
-                                   </ul>                                  
-                                </li>
+                                {% if metric.pricing_rules.size > 0 %}
+                                  <li>{{ metric.name }}
+                                    <ul>
+                                      {% for pricing_rule in metric.pricing_rules %}
+                                        <li>{{ pricing_rule.min }} - {{ pricing_rule.max }} {{ metric.unit}}: {{ pricing_rule.cost_per_unit }}</li>
+                                      {% endfor %}
+                                    </ul>
+                                    <ul>
+                                      {% for usage_limit in metric.usage_limits %}
+                                        <li>{{ usage_limit.period }} : {{ usage_limit.value }}</li>
+                                      {% endfor %}
+                                     </ul>                                  
+                                  </li>
+                                {% endif %}
                               {% endfor %}
                             </dd>
                           {% endfor %}
