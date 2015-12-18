@@ -1,8 +1,16 @@
 <h1>Documentation</h1>
 
+<div class="container-fluid">
 {% for service in provider.services %}
-  <h2>{{ service.name }}<h2>
-  <a href="/docs/{{ service.system_name }}" class="btn btn-primary">Show Swagger</a>
-  <a href="/pdf/{{ service.system_name }}.pdf" class="btn btn-primary">Show PDF</a>
-  <hr>
+  {% if service.subscribable? %}
+    <div class="col-md-8 col-md-offset-2">
+      <h2>{{ service.name }}</h2>
+      <a href="/docs/{{ service.system_name }}" class="btn btn-primary">Show Swagger</a>
+      <a href="/pdf/{{ service.system_name }}.pdf" class="btn btn-primary">Show PDF</a>
+      <br />
+      {{ service.description }}
+      <hr>
+    </div>
+  {% endif %}
 {% endfor %}
+</div>
