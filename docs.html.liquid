@@ -5,8 +5,8 @@
   {% if service.subscribable? %}
     <div class="col-md-8 col-md-offset-2">
       <h2>{{ service.name }}</h2>
-      <a href="/docs/{{ service.system_name }}" class="btn btn-primary">Show Swagger</a>
-      <a href="/pdf/{{ service.system_name }}.pdf" class="btn btn-primary">Show PDF</a>
+      <a href="/pdf/{{ service.system_name }}.pdf" class="btn btn-primary" id="btn_pdf_{{ service.system_name }}">Show PDF</a>
+      <a href="/docs/{{ service.system_name }}" class="btn btn-primary" id="btn_doc_{{ service.system_name }}">Show Swagger</a>
       <br />
       {{ service.description }}
       <hr>
@@ -14,3 +14,12 @@
   {% endif %}
 {% endfor %}
 </div>
+
+<!-- Hide some of the buttons as the documentation is not available.
+  Kind of hacky, but seems reasonable considering what we can do with liquid -->
+<style>
+#btn_doc_EuroFIR-FoodTransport,
+#btn_doc_foodwiz {
+  display: none;
+}
+</style>
