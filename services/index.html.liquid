@@ -78,7 +78,7 @@
                               {% else %}
                                  <div>
                                    <div>Setup fee {{ service_plan.setup_fee }}</div>
-                                   <div>Flat cost {{ service_plan.flat_cost }}</div>
+                                   <div>Monthly cost {{ service_plan.flat_cost }}</div>
                                 </div>
                               {% endif %}
                               {% for feature in service_plan.features %}
@@ -99,7 +99,7 @@
                               {% else %}
                                  <div>
                                    <div>Setup fee: {{ application_plan.setup_fee }}</div>
-                                   <div>Flat cost: {{ application_plan.flat_cost }}</div>
+                                   <div>Monthly cost: {{ application_plan.flat_cost }}</div>
                                 </div>
                               {% endif %}
                               {% for feature in application_plan.features %}
