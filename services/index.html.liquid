@@ -60,6 +60,8 @@
                               //]]>
                             </script>
 
+                            <a href="mailto:info@quisper.eu?subject=Request%20to%20unsubscribe%20from%20service&body=User%3A%20{{ current_user.username }}%0AService%3A%20{{ service.name }}%0A" target="_blank" class="btn btn-default">Unsubscribe</a>
+
                           {% endif %}
                         {% else %}
                           <a class="btn btn-info" href="{{service.subscribe_url}}">Subscribe</a>
