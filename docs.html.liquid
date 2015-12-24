@@ -1,18 +1,26 @@
 <h1>Documentation</h1>
 
 <div class="container-fluid">
-{% for service in provider.services %}
-  {% if service.subscribable? %}
-    <div class="col-md-8 col-md-offset-2">
+<div class="col-md-8 col-md-offset-2">
+
+  <h2>General documentation</h2>
+  <a href="/pdf/manual_developer_portal.pdf">Manual for developer portal</a><br />
+  <a href="/pdf/manual_webservice.pdf">Manual for connecting to a webservice</a><br />
+  <a href="/pdf/manual_provider_portal.pdf">Manual for provider portal</a><br />
+  <hr>
+  
+  {% for service in provider.services %}
+    {% if service.subscribable? %}
       <h2>{{ service.name }}</h2>
       <a href="/pdf/{{ service.system_name }}.pdf" class="btn btn-primary" id="btn_pdf_{{ service.system_name }}">Show PDF</a>
       <a href="/docs/{{ service.system_name }}" class="btn btn-primary" id="btn_doc_{{ service.system_name }}">Show Swagger</a>
       <br />
       {{ service.description }}
       <hr>
-    </div>
-  {% endif %}
-{% endfor %}
+    {% endif %}
+  {% endfor %}
+
+</div>
 </div>
 
 <!-- Hide some of the buttons as the documentation is not available.
